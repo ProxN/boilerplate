@@ -1,0 +1,11 @@
+{
+  "extends": "tsconfig/nextjs.json",
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "noEmit": true,
+    "incremental": false,
+
+  },
+  "include": ["*/.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules","dist",".turbo"]
+}

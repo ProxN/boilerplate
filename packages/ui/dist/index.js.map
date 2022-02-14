@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/index.ts","../src/Button.tsx"],"sourcesContent":["export * from './Button';\n","export const Button = () => {\n  return <button>Boop</button>;\n};\n"],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;;;ACAO,IAAM,SAAS,MAAM;AAC1B,SAAO,oCAAC,UAAD,MAAQ;AAAA;","names":[]}
