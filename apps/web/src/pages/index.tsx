@@ -1,11 +1,5 @@
-import { Button } from 'ui';
-
 const Index = () => {
-  return (
-    <div>
-      <Button />
-    </div>
-  );
+  return <div>Hello world </div>;
 };
 
 export default Index;
