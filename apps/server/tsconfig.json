@@ -1,11 +1,24 @@
 {
   "extends": "tsconfig/server.json",
   "compilerOptions": {
-    "rootDir": "./src",
     "outDir": "build",
-    "typeRoots": ["@types", "../../node_modules/@types"],
-    "experimentalDecorators":true
+    "moduleResolution": "node",
+    "typeRoots": [
+      "@types",
+      "../../node_modules/@types"
+    ],
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "baseUrl": "./src",
   },
-  "include": ["src/"],
-  "exclude": ["node_modules", ".turbo", "coverage", "dist", "src/**/*.test.ts"]
+  "include": [
+    "src/"
+  ],
+  "exclude": [
+    "node_modules",
+    ".turbo",
+    "coverage",
+    "dist",
+    "src/**/*.test.ts"
+  ]
 }
