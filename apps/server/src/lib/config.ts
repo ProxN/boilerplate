@@ -12,6 +12,10 @@ export const {
   MAIL_USER = 'MAIL_USER',
   MAIL_PASS = 'MAIL_PASS',
   WEB_URL = 'http://localhost:3000',
+  SENTRY_DSN = 'SENTRY_DSN',
+  CLOUDINARY_NAME = 'CLOUDINARY_NAME',
+  CLOUDINARY_API_KEY = 'CLOUDINARY_API_KEY',
+  CLOUDINARY_SECRET = 'CLOUDINARY_SECRET',
 } = process.env;
 
 export const IS_PRODUCTION = NODE_ENV === 'production';

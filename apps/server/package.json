@@ -38,9 +38,12 @@
   "dependencies": {
     "@prisma/client": "^3.9.2",
     "@sendgrid/mail": "^7.6.1",
+    "@sentry/node": "^6.17.9",
+    "@sentry/tracing": "^6.17.9",
     "apollo-server-express": "^3.6.3",
     "bcryptjs": "^2.4.3",
     "class-validator": "^0.13.2",
+    "cloudinary": "^1.28.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "express-jwt": "^6.1.0",

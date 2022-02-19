@@ -1,5 +1,6 @@
 import * as nodeMailer from 'nodemailer';
 import path from 'path';
+import * as Sentry from '@sentry/node';
 import { promises as fs } from 'fs';
 import { htmlToText } from 'html-to-text';
 import handlebars from 'handlebars';
@@ -32,7 +33,7 @@ export class Mailer {
         await this.sendDev(args, subject);
       }
     } catch (error) {
-      console.log(error);
+      Sentry.captureException(error);
     }
   }
 
@@ -46,7 +47,7 @@ export class Mailer {
 
     const template = handlebars.compile(source)(args.dynamic_template_data);
 
-    await transport.sendMail({
+    transport.sendMail({
       from: this.from,
       to: args.to,
       subject,

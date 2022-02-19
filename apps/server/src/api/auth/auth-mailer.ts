@@ -1,4 +1,5 @@
 import { Service } from 'typedi';
+import * as Sentry from '@sentry/node';
 
 import { Mailer } from '../../lib/mailer';
 import { IS_PRODUCTION, WEB_URL } from '../../lib/config';
@@ -19,7 +20,7 @@ export class AuthMailer extends Mailer {
       };
       await this.send(data, 'Reset your password!');
     } catch (error) {
-      console.log(error);
+      Sentry.captureException(error);
     }
   }
 }
