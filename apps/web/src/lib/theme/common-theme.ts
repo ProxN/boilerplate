@@ -110,7 +110,7 @@ const tokens = {
     md: '768px',
     lg: '1024px',
     xl: '1280px',
-    '2xl': '1400px',
+    xxl: '1400px',
   },
 };
 
@@ -119,7 +119,7 @@ const media = {
   md: `(min-width: ${tokens.breakpoints.md})`,
   lg: `(min-width: ${tokens.breakpoints.lg})`,
   xl: `(min-width: ${tokens.breakpoints.xl})`,
-  '2xl': `(min-width: ${tokens.breakpoints['2xl']})`,
+  xxl: `(min-width: ${tokens.breakpoints.xxl})`,
   motion: '(prefers-reduced-motion)',
   hover: '(any-hover: hover)',
   dark: '(prefers-color-scheme: dark)',

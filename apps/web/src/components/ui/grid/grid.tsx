@@ -1,13 +1,21 @@
-import { forwardRef } from '@lib/utils/forward-ref';
 import { useMemo } from 'react';
+import classNames from 'classnames';
+
+import { forwardRef } from '@lib/utils/forward-ref';
+import { Wrap, AlignItems, Justify, Direction } from '@lib/utils/types';
 import { GridBasic, GridBasicVariantsProps } from './grid-styles';
 
 interface Props {
+  gap?: number;
+  wrap?: Wrap;
+  direction?: Direction;
+  justify?: Justify;
+  alignItems?: AlignItems;
   sm?: number | boolean;
   md?: number | boolean;
   lg?: number | boolean;
   xl?: number | boolean;
-  '2xl'?: number | boolean;
+  xxl?: number | boolean;
 }
 
 export type GridProps = Props & GridBasicVariantsProps;
@@ -34,32 +42,44 @@ const getGridLayout = (val?: number | boolean) => {
 export const Grid = forwardRef<GridProps, 'div'>((props, ref) => {
   const {
     css,
+    gap = 1,
     sm = false,
     md = false,
     lg = false,
     xl = false,
+    xxl = false,
+    alignItems = 'flex-start',
+    justify = 'flex-start',
+    direction = 'row',
+    wrap = 'wrap',
+    item,
+    container,
     ...rest
   } = props;
+
   const classes = useMemo(() => {
-    const breaks: { [key: string]: unknown } = {
-      sm,
-      md,
-      lg,
-      xl,
-    };
-    const classString = Object.keys(breaks).reduce((pre, name) => {
-      if (breaks[name]) return `${pre} ${name}`;
-      return pre;
-    }, '');
-    return classString.trim();
-  }, [sm, md, lg, xl]);
+    return classNames({ container, item, sm, md, lg, xl, xxl });
+  }, [container, item, sm, md, lg, xl, xxl]);
+
+  const gapUnit = useMemo(() => {
+    return `calc(${gap} * $space$4)`;
+  }, [gap]);
 
   return (
     <GridBasic
       className={classes}
-      item
       ref={ref}
       css={{
+        '&.container': {
+          $$gridGap: gapUnit,
+          flexWrap: wrap,
+          justifyContent: justify,
+          alignItems: alignItems,
+          flexDirection: direction,
+        },
+        '&.item': {
+          ...getGridLayout(sm),
+        },
         '@sm': {
           '&.sm': {
             ...getGridLayout(sm),
@@ -80,8 +100,15 @@ export const Grid = forwardRef<GridProps, 'div'>((props, ref) => {
             ...getGridLayout(xl),
           },
         },
+        '@xxl': {
+          '&.xxl': {
+            ...getGridLayout(xxl),
+          },
+        },
         ...css,
       }}
+      item={item}
+      container={container}
       {...rest}
     />
   );
