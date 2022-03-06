@@ -214,6 +214,17 @@ const utils = {
   smallBorder: (value: Stitches.PropertyValue<'backgroundColor'>) => ({
     boxShadow: `0 0 0 1px $colors${value}`,
   }),
+
+  ringPrimary: (value: Stitches.PropertyValue<'backgroundColor'>) => ({
+    WebkitTapHighlightColor: 'transparent',
+    '&:focus:not(&:focus-visible)': {
+      boxShadow: 'none',
+    },
+    '&:focus': {
+      outline: 'none',
+      boxShadow: `0 0 0 3px $colors$primaryLight`,
+    },
+  }),
 };
 
 export const themeMap = {

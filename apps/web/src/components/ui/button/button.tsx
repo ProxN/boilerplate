@@ -1,53 +1,66 @@
 import React from 'react';
 
 import { forwardRef } from '@lib/utils/forward-ref';
-import { StyledButton, ButtonVariantProps, ButtonIcon } from './button-styles';
+import {
+  StyledButton,
+  ButtonVariantProps,
+  ButtonIcon,
+  ButtonText,
+} from './button-styles';
+import { Loading } from '../loading';
 
 interface Props {
   disabled?: boolean;
-  iconLeft?: React.ReactNode;
+  icon?: React.ReactNode;
   iconRight?: React.ReactNode;
+  loading?: boolean;
 }
 
 export type ButtonProps = Props & ButtonVariantProps;
 
 const Button = forwardRef<ButtonProps, 'button'>((props, ref) => {
-  const { disabled, iconLeft, iconRight, ghost, outline, children, ...rest } =
-    props;
+  const {
+    disabled,
+    icon,
+    color,
+    auto,
+    iconRight,
+    ghost,
+    outline,
+    children,
+    loading = false,
+    ...rest
+  } = props;
 
-  const hasIcon = iconLeft || iconRight;
+  const hasIcon = icon || iconRight;
   return (
     <StyledButton
       ref={ref}
+      color={color}
       disabled={disabled}
       ghost={ghost}
       outline={outline || ghost}
+      auto={auto}
       {...rest}
     >
-      {hasIcon && React.Children.count(children) === 0 ? (
-        <ButtonIcon>{hasIcon}</ButtonIcon>
+      {loading ? (
+        <Loading color={outline || ghost ? color : 'white'} size='xs' />
+      ) : hasIcon && React.Children.count(children) === 0 ? (
+        <ButtonIcon auto={auto} single>
+          {hasIcon}
+        </ButtonIcon>
+      ) : hasIcon ? (
+        <>
+          <ButtonIcon auto={auto} right={!!iconRight}>
+            {hasIcon}
+          </ButtonIcon>
+          <ButtonText>{children}</ButtonText>
+        </>
       ) : (
-        iconLeft && <ButtonIcon left>{iconLeft}</ButtonIcon>
+        children
       )}
-      {children}
-      {!hasIcon && iconRight && <ButtonIcon right>{iconRight}</ButtonIcon>}
     </StyledButton>
   );
 });
 
 export default Button;
-// export const Button: React.FC<ButtonProps> = ({
-//   outline,
-//   disabled,
-//   ghost,
-//   ...rest
-// }) => {
-//   return (
-//     <StyledButton
-//       disabled={disabled}
-//       ghost={ghost}
-//       outline={outline || ghost}
-//       {...rest}
-//     />
-//   );
-// };

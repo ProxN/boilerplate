@@ -17,6 +17,7 @@ export const StyledButton = styled('button', {
   width: 'auto',
   fontFamily: '$sans',
   color: '$text',
+  outline: 'none',
   p: 0,
   '@motion': {
     transition: 'none',
@@ -54,34 +55,39 @@ export const StyledButton = styled('button', {
     // Size
     size: {
       xs: {
+        $$iconPadding: '$space$1',
         h: '$6',
         px: '$1',
         fontSize: '$xs',
-        minW: '$12',
+        minW: '$20',
       },
       sm: {
+        $$iconPadding: '$space$2',
         h: '$7',
         px: '$2',
         fontSize: '$sm',
-        minW: '$20',
+        minW: '$36',
       },
       md: {
+        $$iconPadding: '$space$4',
         h: '$9',
         px: '$4',
         fontSize: '$sm',
-        minW: '$28',
+        minW: '$48',
       },
       lg: {
+        $$iconPadding: '$space$6',
         h: '$10',
         px: '$6',
         fontSize: '$lg',
-        minW: '$36',
+        minW: '$56',
       },
       xl: {
+        $$iconPadding: '$space$12',
         h: '$12',
         px: '$12',
         fontSize: '$xl',
-        minW: '$48',
+        minW: '$64',
       },
     },
     auto: {
@@ -285,10 +291,13 @@ export const StyledButton = styled('button', {
     },
   ],
 
+  ringPrimary: '$primaryLight',
+
   defaultVariants: {
     size: 'md',
     radii: 'sm',
     color: 'default',
+    auto: false,
     animated: true,
   },
 });
@@ -297,19 +306,56 @@ export const ButtonIcon = styled('span', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-
+  position: 'absolute',
+  color: 'inherit',
+  left: '$$iconPadding',
+  zIndex: '$1',
+  right: 'auto',
   variants: {
-    right: {
+    auto: {
       true: {
-        marginLeft: '$0',
+        position: 'relative',
       },
     },
-    left: {
+    single: {
       true: {
-        marginRight: '$0',
+        position: 'static',
+        m: '0',
+      },
+    },
+    right: {
+      true: {
+        right: '$$iconPadding',
+        left: 'auto',
       },
     },
   },
+
+  compoundVariants: [
+    {
+      auto: true,
+      right: true,
+      css: {
+        order: 2,
+        ml: '$$iconPadding',
+        left: '0%',
+      },
+    },
+    {
+      auto: true,
+      right: false,
+      css: {
+        mr: '$$iconPadding',
+        left: '0%',
+      },
+    },
+  ],
+});
+
+export const ButtonText = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 });
 
 export type ButtonVariantProps = VariantProps<typeof StyledButton>;

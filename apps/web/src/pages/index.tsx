@@ -1,10 +1,11 @@
-import { IoIosAdd } from 'react-icons/io';
+import { IoIosAdd, IoMdHeart, IoMdCamera, IoMdLock } from 'react-icons/io';
 
 import { Box } from '@components/ui/box';
 import { Button } from '@components/ui/button';
 import { Container } from '@components/ui/container';
 import { Grid } from '@components/ui/grid';
 import { Space } from '@components/ui/space';
+import { Loading } from '@components/ui/loading';
 
 const MockItem: React.FC<{ text: string }> = ({ text }) => {
   return <Box css={{ width: '100%', backgroundColor: '$blue500' }}>{text}</Box>;
@@ -49,7 +50,6 @@ const Index = () => {
               Success
             </Button>
           </Space>
-
           <Space style={{ marginTop: '2rem' }} direction='horizontal'>
             <Button ghost>Primary</Button>
             <Button ghost color='secondary'>
@@ -63,6 +63,24 @@ const Index = () => {
             </Button>
             <Button ghost color='success'>
               Success
+            </Button>
+          </Space>
+          <Space style={{ marginTop: '2rem' }} direction='horizontal'>
+            <Button loading>Primary</Button>
+            <Button loading color='secondary'>
+              Secondary
+            </Button>
+            <Button loading color='warning'>
+              Warning
+            </Button>
+            <Button loading color='error'>
+              Error
+            </Button>
+            <Button loading color='success'>
+              Success
+            </Button>
+            <Button loading disabled>
+              disabled
             </Button>
           </Space>
           <Space style={{ marginTop: '2rem' }} direction='horizontal'>
@@ -81,7 +99,11 @@ const Index = () => {
             </Button>
           </Space>
           <Space style={{ marginTop: '2rem' }} direction='horizontal'>
-            <Button iconRight={<IoIosAdd size={24} />}></Button>
+            <Button color='error' auto icon={<IoMdHeart size={24} />} />
+            <Button iconRight={<IoMdCamera size={24} />}>Take a photo</Button>
+            <Button auto color='success' icon={<IoMdLock size={24} />}>
+              Lock
+            </Button>
           </Space>
         </Grid>
       </Grid>

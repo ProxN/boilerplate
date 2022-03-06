@@ -7,5 +7,6 @@ module.exports = {
   },
   rules: {
     'no-unused-vars': 'off',
+    'react/display-name': 'off',
   },
 };
