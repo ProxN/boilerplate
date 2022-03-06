@@ -27,6 +27,7 @@ export const {
 });
 
 export const darkTheme = createTheme('dark', {
+  ...defaultDarkTheme,
   colors: {
     ...defaultDarkTheme.colors,
   },

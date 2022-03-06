@@ -1,3 +1,4 @@
+import { defaultThemeMap } from '@stitches/react';
 import * as Stitches from '@stitches/react';
 import { colors } from './colors';
 
@@ -102,7 +103,7 @@ const tokens = {
     10: '1000',
     max: '9999',
   },
-  transition: {
+  transitions: {
     default: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
   },
   breakpoints: {
@@ -202,6 +203,25 @@ const utils = {
   bg: (value: Stitches.PropertyValue<'backgroundColor'>) => ({
     backgroundColor: value,
   }),
+
+  linearGradient: (value: Stitches.PropertyValue<'backgroundImage'>) => ({
+    backgroundImage: `linear-gradient(${value})`,
+  }),
+
+  boxS: (value: Stitches.PropertyValue<'boxShadow'>) => ({
+    boxShadow: value,
+  }),
+  smallBorder: (value: Stitches.PropertyValue<'backgroundColor'>) => ({
+    boxShadow: `0 0 0 1px $colors${value}`,
+  }),
+};
+
+export const themeMap = {
+  ...defaultThemeMap,
+  width: 'space',
+  height: 'space',
+  minWidth: 'space',
+  minHeighT: 'space',
 };
 
 export const commonTheme = {
@@ -213,4 +233,5 @@ export const commonTheme = {
   },
   media,
   utils,
+  themeMap,
 };
