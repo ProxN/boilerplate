@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, memo } from 'react';
 import classNames from 'classnames';
 
 import { forwardRef } from '@lib/utils/forward-ref';
@@ -39,77 +39,79 @@ const getGridLayout = (val?: number | boolean) => {
   };
 };
 
-export const Grid = forwardRef<GridProps, 'div'>((props, ref) => {
-  const {
-    css,
-    gap = 1,
-    sm = false,
-    md = false,
-    lg = false,
-    xl = false,
-    xxl = false,
-    alignItems = 'flex-start',
-    justify = 'flex-start',
-    direction = 'row',
-    wrap = 'wrap',
-    item,
-    container,
-    ...rest
-  } = props;
+export const Grid = memo(
+  forwardRef<GridProps, 'div'>((props, ref) => {
+    const {
+      css,
+      gap = 1,
+      sm = false,
+      md = false,
+      lg = false,
+      xl = false,
+      xxl = false,
+      alignItems = 'flex-start',
+      justify = 'flex-start',
+      direction = 'row',
+      wrap = 'wrap',
+      item,
+      container,
+      ...rest
+    } = props;
 
-  const classes = useMemo(() => {
-    return classNames({ container, item, sm, md, lg, xl, xxl });
-  }, [container, item, sm, md, lg, xl, xxl]);
+    const classes = useMemo(() => {
+      return classNames({ container, item, sm, md, lg, xl, xxl });
+    }, [container, item, sm, md, lg, xl, xxl]);
 
-  const gapUnit = useMemo(() => {
-    return `calc(${gap} * $space$4)`;
-  }, [gap]);
+    const gapUnit = useMemo(() => {
+      return `calc(${gap} * $space$4)`;
+    }, [gap]);
 
-  return (
-    <GridBasic
-      className={classes}
-      ref={ref}
-      css={{
-        '&.container': {
-          $$gridGap: gapUnit,
-          flexWrap: wrap,
-          justifyContent: justify,
-          alignItems: alignItems,
-          flexDirection: direction,
-        },
-        '&.item': {
-          ...getGridLayout(sm),
-        },
-        '@sm': {
-          '&.sm': {
+    return (
+      <GridBasic
+        className={classes}
+        ref={ref}
+        css={{
+          '&.container': {
+            $$gridGap: gapUnit,
+            flexWrap: wrap,
+            justifyContent: justify,
+            alignItems: alignItems,
+            flexDirection: direction,
+          },
+          '&.item': {
             ...getGridLayout(sm),
           },
-        },
-        '@md': {
-          '&.md': {
-            ...getGridLayout(md),
+          '@sm': {
+            '&.sm': {
+              ...getGridLayout(sm),
+            },
           },
-        },
-        '@lg': {
-          '&.lg': {
-            ...getGridLayout(lg),
+          '@md': {
+            '&.md': {
+              ...getGridLayout(md),
+            },
           },
-        },
-        '@xl': {
-          '&.xl': {
-            ...getGridLayout(xl),
+          '@lg': {
+            '&.lg': {
+              ...getGridLayout(lg),
+            },
           },
-        },
-        '@xxl': {
-          '&.xxl': {
-            ...getGridLayout(xxl),
+          '@xl': {
+            '&.xl': {
+              ...getGridLayout(xl),
+            },
           },
-        },
-        ...css,
-      }}
-      item={item}
-      container={container}
-      {...rest}
-    />
-  );
-});
+          '@xxl': {
+            '&.xxl': {
+              ...getGridLayout(xxl),
+            },
+          },
+          ...css,
+        }}
+        item={item}
+        container={container}
+        {...rest}
+      />
+    );
+  })
+);

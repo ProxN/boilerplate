@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import { forwardRef } from '@lib/utils/forward-ref';
 import {
   Wrap,
@@ -16,29 +18,31 @@ export type FlexProps = {
   alignContent?: alignContent;
 };
 
-export const Flex = forwardRef<FlexProps, 'div'>((props, ref) => {
-  const {
-    alignItems,
-    alignContent,
-    justify,
-    direction = 'row',
-    wrap = 'wrap',
-    css,
-    ...rest
-  } = props;
-  return (
-    <Box
-      ref={ref}
-      css={{
-        display: 'flex',
-        alignItems,
-        alignContent,
-        justifyContent: justify,
-        flexDirection: direction,
-        flexWrap: wrap,
-        ...css,
-      }}
-      {...rest}
-    />
-  );
-});
+export const Flex = memo(
+  forwardRef<FlexProps, 'div'>((props, ref) => {
+    const {
+      alignItems,
+      alignContent,
+      justify,
+      direction = 'row',
+      wrap = 'wrap',
+      css,
+      ...rest
+    } = props;
+    return (
+      <Box
+        ref={ref}
+        css={{
+          display: 'flex',
+          alignItems,
+          alignContent,
+          justifyContent: justify,
+          flexDirection: direction,
+          flexWrap: wrap,
+          ...css,
+        }}
+        {...rest}
+      />
+    );
+  })
+);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { forwardRef } from '@lib/utils/forward-ref';
 import {
@@ -18,49 +18,49 @@ interface Props {
 
 export type ButtonProps = Props & ButtonVariantProps;
 
-const Button = forwardRef<ButtonProps, 'button'>((props, ref) => {
-  const {
-    disabled,
-    icon,
-    color,
-    auto,
-    iconRight,
-    ghost,
-    outline,
-    children,
-    loading = false,
-    ...rest
-  } = props;
+export const Button = memo(
+  forwardRef<ButtonProps, 'button'>((props, ref) => {
+    const {
+      disabled,
+      icon,
+      color,
+      auto,
+      iconRight,
+      ghost,
+      outline,
+      children,
+      loading = false,
+      ...rest
+    } = props;
 
-  const hasIcon = icon || iconRight;
-  return (
-    <StyledButton
-      ref={ref}
-      color={color}
-      disabled={disabled}
-      ghost={ghost}
-      outline={outline || ghost}
-      auto={auto}
-      {...rest}
-    >
-      {loading ? (
-        <Loading color={outline || ghost ? color : 'white'} size='xs' />
-      ) : hasIcon && React.Children.count(children) === 0 ? (
-        <ButtonIcon auto={auto} single>
-          {hasIcon}
-        </ButtonIcon>
-      ) : hasIcon ? (
-        <>
-          <ButtonIcon auto={auto} right={!!iconRight}>
+    const hasIcon = icon || iconRight;
+    return (
+      <StyledButton
+        ref={ref}
+        color={color}
+        disabled={disabled}
+        ghost={ghost}
+        outline={outline || ghost}
+        auto={auto}
+        {...rest}
+      >
+        {loading ? (
+          <Loading color={outline || ghost ? color : 'white'} size='xs' />
+        ) : hasIcon && React.Children.count(children) === 0 ? (
+          <ButtonIcon auto={auto} single>
             {hasIcon}
           </ButtonIcon>
-          <ButtonText>{children}</ButtonText>
-        </>
-      ) : (
-        children
-      )}
-    </StyledButton>
-  );
-});
-
-export default Button;
+        ) : hasIcon ? (
+          <>
+            <ButtonIcon auto={auto} right={!!iconRight}>
+              {hasIcon}
+            </ButtonIcon>
+            <ButtonText>{children}</ButtonText>
+          </>
+        ) : (
+          children
+        )}
+      </StyledButton>
+    );
+  })
+);
